@@ -405,11 +405,155 @@
       .dot {
         aspect-ratio: 1;
         border-radius: 10px;
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.07);
         border: 1px solid rgba(255, 255, 255, 0.08);
+        cursor: pointer;
+        transition:
+          0.18s transform,
+          0.18s filter,
+          0.18s border;
       }
+      .dot:hover {
+        transform: scale(1.08);
+        filter: brightness(1.2);
+      }
+      .dot.p0 {
+        background: rgba(255, 255, 255, 0.055);
+      }
+      .dot.p1 {
+        background: linear-gradient(
+          135deg,
+          rgba(239, 68, 68, 0.22),
+          rgba(255, 255, 255, 0.07)
+        );
+        border-color: rgba(239, 68, 68, 0.28);
+      }
+      .dot.p2 {
+        background: linear-gradient(
+          135deg,
+          rgba(245, 158, 11, 0.32),
+          rgba(255, 255, 255, 0.08)
+        );
+        border-color: rgba(245, 158, 11, 0.36);
+      }
+      .dot.p3 {
+        background: linear-gradient(
+          135deg,
+          rgba(6, 182, 212, 0.36),
+          rgba(255, 255, 255, 0.08)
+        );
+        border-color: rgba(6, 182, 212, 0.4);
+      }
+      .dot.p4 {
+        background: linear-gradient(
+          135deg,
+          rgba(124, 58, 237, 0.5),
+          rgba(34, 197, 94, 0.24)
+        );
+        border-color: rgba(124, 58, 237, 0.55);
+      }
+      .dot.p5,
       .dot.done {
         background: linear-gradient(135deg, var(--accent), var(--good));
+        border-color: rgba(34, 197, 94, 0.75);
+        box-shadow: 0 0 14px rgba(34, 197, 94, 0.2);
+      }
+      .dot.current {
+        outline: 2px solid #fff;
+        outline-offset: 2px;
+      }
+      .dot.missed {
+        box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.35);
+      }
+      .cal-legend {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 5px;
+        margin: 10px 0 12px;
+      }
+      .cal-legend span {
+        font-size: 10px;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .cal-mini {
+        width: 14px;
+        height: 14px;
+        border-radius: 5px;
+        display: inline-block;
+      }
+      .overdue-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-height: 420px;
+        overflow: auto;
+        padding-right: 2px;
+      }
+      .overdue-card {
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.07);
+        border-radius: 18px;
+        padding: 12px;
+        animation: overdueIn 0.25s ease both;
+      }
+      .overdue-card h3 {
+        font-size: 14px;
+        margin: 0 0 6px;
+        line-height: 1.25;
+      }
+      .overdue-card p {
+        margin: 0;
+        color: #dbe3ff;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      .overdue-meta {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin: 8px 0;
+      }
+      .overdue-meta span {
+        font-size: 10px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        padding: 4px 7px;
+        color: #dbeafe;
+      }
+      .overdue-actions {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+        margin-top: 9px;
+      }
+      .overdue-actions .btn {
+        padding: 8px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+      }
+      .overdue-empty {
+        text-align: center;
+        color: var(--muted);
+        padding: 18px;
+        border: 1px dashed var(--line);
+        border-radius: 18px;
+      }
+      .backlog-count {
+        color: #fde68a;
+      }
+      @keyframes overdueIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
       }
       .nav {
         position: fixed;
@@ -417,9 +561,9 @@
         left: 50%;
         transform: translateX(-50%);
         z-index: 50;
-        width: min(520px, calc(100% - 24px));
+        width: min(620px, calc(100% - 24px));
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         gap: 8px;
         background: rgba(8, 10, 18, 0.72);
         border: 1px solid var(--line);
@@ -545,6 +689,339 @@
           padding-bottom: 24px;
         }
       }
+
+      /* ===== V5.3 LAYOUT BOOST: mniej podłużnie, lepsza ekspozycja ===== */
+      .app {
+        width: min(1240px, 100%);
+        padding: 18px;
+      }
+      .hero {
+        padding: 20px 22px;
+      }
+      .hero-layout {
+        display: grid;
+        grid-template-columns: 1.25fr 0.9fr;
+        gap: 18px;
+        align-items: end;
+        position: relative;
+        z-index: 1;
+      }
+      .hero h1 {
+        font-size: clamp(32px, 6.2vw, 68px);
+        max-width: 680px;
+      }
+      .hero-copy p {
+        max-width: 650px;
+      }
+      .hero-command {
+        background: rgba(0, 0, 0, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 26px;
+        padding: 16px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+      .command-label {
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #a5f3fc;
+        margin-bottom: 10px;
+      }
+      .hero-mini {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .hero-mini span {
+        font-size: 12px;
+        color: #e0e7ff;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 8px 9px;
+      }
+      .dashboard {
+        margin-top: 14px;
+      }
+      .dashboard .stats {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .dashboard .stat {
+        min-height: 92px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.1),
+          rgba(255, 255, 255, 0.06)
+        );
+        position: relative;
+        overflow: hidden;
+      }
+      .dashboard .stat:after {
+        content: "";
+        position: absolute;
+        right: -24px;
+        top: -24px;
+        width: 74px;
+        height: 74px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.055);
+      }
+      .workspace {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+        gap: 14px;
+        margin-top: 14px;
+        align-items: start;
+      }
+      .quests-panel {
+        min-height: 580px;
+      }
+      .mission-banner {
+        margin-bottom: 12px;
+        padding: 14px;
+        border-radius: 22px;
+      }
+      .side-top {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        position: sticky;
+        top: 14px;
+      }
+      .bottom-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 14px;
+        margin-top: 14px;
+      }
+      .calendar {
+        gap: 6px;
+      }
+      .dot {
+        border-radius: 9px;
+      }
+      .overdue-list {
+        max-height: 360px;
+      }
+      .quest {
+        padding: 14px;
+        border-radius: 22px;
+      }
+      .quest h3 {
+        font-size: 16px;
+      }
+      .quest p {
+        font-size: 14px;
+      }
+      .details ol {
+        font-size: 14px;
+      }
+      .proof {
+        font-size: 12px;
+      }
+      .catrow {
+        grid-template-columns: 110px 1fr 42px;
+      }
+      .sync-row .btn {
+        flex: 1;
+      }
+      .sync-row input {
+        min-width: 100%;
+        flex-basis: 100%;
+      }
+      @media (max-width: 980px) {
+        .hero-layout {
+          grid-template-columns: 1fr;
+        }
+        .dashboard .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .workspace {
+          grid-template-columns: 1fr;
+        }
+        .side-top {
+          position: static;
+          grid-template-columns: 1fr 1fr;
+        }
+        .bottom-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .bottom-grid > section:last-child {
+          grid-column: 1/-1;
+        }
+        .quests-panel {
+          min-height: auto;
+        }
+        .sync-row input {
+          min-width: 180px;
+          flex-basis: auto;
+        }
+      }
+      @media (max-width: 680px) {
+        .app {
+          padding: 12px;
+        }
+        .hero {
+          padding: 16px;
+          border-radius: 24px;
+        }
+        .hero h1 {
+          font-size: 34px;
+          letter-spacing: -0.05em;
+        }
+        .hero-mini {
+          grid-template-columns: 1fr 1fr;
+        }
+        .dashboard .stats {
+          grid-template-columns: 1fr 1fr;
+        }
+        .stat {
+          min-height: 76px;
+        }
+        .stat b {
+          font-size: 22px;
+        }
+        .side-top,
+        .bottom-grid {
+          grid-template-columns: 1fr;
+        }
+        .cal-legend {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .calendar {
+          gap: 4px;
+        }
+        .dot {
+          border-radius: 7px;
+        }
+        .overdue-list {
+          max-height: 330px;
+        }
+        .datebar {
+          display: grid;
+          grid-template-columns: 1fr 1fr 52px 52px;
+        }
+        .datebar input {
+          grid-column: 1/-1;
+        }
+        .datebar .btn {
+          padding: 11px 9px;
+        }
+        .section-title {
+          align-items: flex-start;
+        }
+        .section-title h2 {
+          font-size: 17px;
+        }
+        .btn {
+          border-radius: 14px;
+        }
+        .quest-head {
+          gap: 8px;
+        }
+        .check {
+          width: 30px;
+          height: 30px;
+        }
+        .bottom-grid {
+          margin-bottom: 12px;
+        }
+      }
+
+      /* V5.4: quote higher + monthly calendar */
+      .focus-card {
+        background: linear-gradient(
+          135deg,
+          rgba(124, 58, 237, 0.2),
+          rgba(6, 182, 212, 0.12)
+        );
+        border-color: rgba(196, 181, 253, 0.24);
+      }
+      .focus-card .quote {
+        font-size: 18px;
+        font-weight: 750;
+        letter-spacing: -0.02em;
+      }
+      .month-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin: 4px 0 10px;
+      }
+      .month-title {
+        font-weight: 900;
+        color: #eef2ff;
+        letter-spacing: -0.02em;
+      }
+      .month-nav {
+        display: flex;
+        gap: 6px;
+      }
+      .month-nav .btn {
+        padding: 7px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        box-shadow: none;
+      }
+      .weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+        margin: 6px 0 7px;
+      }
+      .weekdays span {
+        text-align: center;
+        font-size: 10px;
+        font-weight: 900;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .dot.blank {
+        background: transparent;
+        border: 0;
+        pointer-events: none;
+        box-shadow: none;
+      }
+      .dot.future {
+        opacity: 0.42;
+        filter: saturate(0.7);
+      }
+      .dot .daynum {
+        font-size: 10px;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.78);
+        display: grid;
+        place-items: center;
+        height: 100%;
+      }
+      .dot.p5 .daynum,
+      .dot.done .daynum {
+        color: white;
+      }
+      @media (max-width: 680px) {
+        .focus-card .quote {
+          font-size: 16px;
+        }
+        .month-nav .btn {
+          padding: 6px 8px;
+        }
+        .weekdays {
+          gap: 4px;
+        }
+      }
+
+      .bottom-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      @media (max-width: 900px) {
+        .bottom-grid {
+          grid-template-columns: 1fr;
+        }
+      }
     </style>
   </head>
   <body>
@@ -558,118 +1035,168 @@
             >12.06 → 31.12.2026</span
           >
         </div>
-        <h1>Twoje 5 questów dziennie</h1>
-        <p>
-          2 challenge + 3 zadania. Codziennie angielski i Joinly. Treningi
-          według planu „Up up”. Zero studiów w tym roku — cel to praca jako
-          programista, projekt z użytkownikami i realny progres.
-        </p>
-        <div class="datebar">
-          <input type="date" id="datePicker" /><button
-            class="btn"
-            id="todayBtn"
-          >
-            Dzisiaj</button
-          ><button class="btn secondary" id="prevBtn">←</button
-          ><button class="btn secondary" id="nextBtn">→</button>
+        <div class="hero-layout">
+          <div class="hero-copy">
+            <h1>Daily Quest Dashboard</h1>
+            <p>
+              2 challenge + 3 zadania dziennie. Codziennie angielski i Joinly,
+              konkretne treningi z progresją, zaległości do nadrobienia i pełna
+              mapa postępu.
+            </p>
+          </div>
+          <div class="hero-command">
+            <div class="command-label">Centrum dnia</div>
+            <div class="datebar">
+              <input type="date" id="datePicker" /><button
+                class="btn"
+                id="todayBtn"
+              >
+                Dzisiaj</button
+              ><button class="btn secondary" id="prevBtn">←</button
+              ><button class="btn secondary" id="nextBtn">→</button>
+            </div>
+            <div class="hero-mini">
+              <span>🎯 5 questów</span><span>🔥 streak</span
+              ><span>📊 kalendarz</span><span>♻️ nadrabianie</span>
+            </div>
+          </div>
         </div>
       </header>
-      <main class="grid">
-        <section class="panel" id="questsPanel">
+
+      <section class="panel dashboard" id="statsPanel">
+        <div class="section-title">
+          <h2>Panel progresu</h2>
+          <span class="muted" id="progressText"></span>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <span class="muted">Streak</span><b id="streak">0</b>
+            <div class="bar"><div class="fill" id="streakFill"></div></div>
+          </div>
+          <div class="stat">
+            <span class="muted">Wykonane</span><b id="doneTotal">0</b>
+            <div class="bar"><div class="fill" id="doneFill"></div></div>
+          </div>
+          <div class="stat">
+            <span class="muted">Punkty</span><b id="points">0</b>
+            <div class="bar"><div class="fill" id="pointsFill"></div></div>
+          </div>
+          <div class="stat">
+            <span class="muted">Dni do końca</span><b id="daysLeft">0</b>
+            <div class="bar"><div class="fill" id="yearFill"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <main class="workspace">
+        <section class="panel quests-panel" id="questsPanel">
           <div class="section-title">
             <h2 id="dayTitle">Questy</h2>
             <button class="btn ghost" id="rerollBtn">Losuj zamiennik</button>
           </div>
-          <div class="panel boss">
-            <div class="muted">Boss tygodnia</div>
-            <div class="quote" id="bossText"></div>
+          <div class="mission-banner boss">
+            <div>
+              <div class="muted">Boss tygodnia</div>
+              <div class="quote" id="bossText"></div>
+            </div>
           </div>
-          <br />
           <div class="quests" id="quests"></div>
         </section>
-        <aside class="side">
-          <section class="panel" id="statsPanel">
+
+        <aside class="side-top">
+          <section class="panel focus-card" id="quotePanel">
             <div class="section-title">
-              <h2>Statystyki</h2>
-              <span class="muted" id="progressText"></span>
+              <h2>Dzisiejszy cytat</h2>
+              <span class="muted">fokus dnia</span>
             </div>
-            <div class="stats">
-              <div class="stat">
-                <span class="muted">Streak</span><b id="streak">0</b>
-                <div class="bar"><div class="fill" id="streakFill"></div></div>
-              </div>
-              <div class="stat">
-                <span class="muted">Wykonane</span><b id="doneTotal">0</b>
-                <div class="bar"><div class="fill" id="doneFill"></div></div>
-              </div>
-              <div class="stat">
-                <span class="muted">Punkty</span><b id="points">0</b>
-                <div class="bar"><div class="fill" id="pointsFill"></div></div>
-              </div>
-              <div class="stat">
-                <span class="muted">Dni do końca</span><b id="daysLeft">0</b>
-                <div class="bar"><div class="fill" id="yearFill"></div></div>
-              </div>
-            </div>
-          </section>
-          <br />
-          <section class="panel" id="syncPanel">
-            <div class="section-title">
-              <h2>Supabase sync</h2>
-              <span class="muted" id="syncStatus">lokalnie</span>
-            </div>
-            <div class="syncbox">
-              <p class="sync-status">
-                Postęp zapisuje się lokalnie zawsze. Po konfiguracji Supabase
-                możesz logować się mailem i synchronizować progres między
-                telefonem i komputerem.
-              </p>
-              <div class="sync-row">
-                <input
-                  id="syncEmail"
-                  type="email"
-                  placeholder="twój email do logowania"
-                /><button class="btn secondary" id="loginBtn">
-                  Wyślij link
-                </button>
-              </div>
-              <div class="sync-row">
-                <button class="btn" id="syncBtn">Synchronizuj teraz</button
-                ><button class="btn ghost" id="logoutBtn">Wyloguj</button>
-              </div>
-            </div>
-          </section>
-          <br />
-          <section class="panel">
-            <div class="section-title">
-              <h2>Kategorie</h2>
-              <span class="muted">wykonane</span>
-            </div>
-            <div class="cats" id="catStats"></div>
-          </section>
-          <br />
-          <section class="panel">
-            <div class="section-title">
-              <h2>Kalendarz</h2>
-              <span class="muted">dzień zaliczony = 5/5</span>
-            </div>
-            <div class="calendar" id="calendar"></div>
-          </section>
-          <br />
-          <section class="panel">
-            <div class="section-title"><h2>Cytat</h2></div>
             <div class="quote" id="quote"></div>
             <p class="muted" id="monthlyFocus"></p>
           </section>
+          <section class="panel" id="calendarPanel">
+            <div class="section-title">
+              <h2>Kalendarz</h2>
+              <span class="muted">obecny miesiąc</span>
+            </div>
+            <div class="month-head">
+              <div class="month-title" id="calendarMonthLabel">Miesiąc</div>
+              <div class="month-nav">
+                <button class="btn ghost" id="calPrevBtn">←</button
+                ><button class="btn ghost" id="calTodayBtn">Dziś</button
+                ><button class="btn ghost" id="calNextBtn">→</button>
+              </div>
+            </div>
+            <div class="cal-legend">
+              <span><i class="cal-mini dot p0"></i>0/5</span
+              ><span><i class="cal-mini dot p1"></i>1/5</span
+              ><span><i class="cal-mini dot p2"></i>2/5</span
+              ><span><i class="cal-mini dot p3"></i>3/5</span
+              ><span><i class="cal-mini dot p4"></i>4/5</span
+              ><span><i class="cal-mini dot p5"></i>5/5</span>
+            </div>
+            <div class="weekdays">
+              <span>Pon</span><span>Wt</span><span>Śr</span><span>Czw</span
+              ><span>Pt</span><span>Sob</span><span>Nd</span>
+            </div>
+            <div class="calendar" id="calendar"></div>
+          </section>
+          <section class="panel" id="overduePanel">
+            <div class="section-title">
+              <h2>Zaległe zadania</h2>
+              <span class="muted"
+                ><b class="backlog-count" id="overdueCount">0</b> do
+                nadrobienia</span
+              >
+            </div>
+            <p class="sync-status">
+              Niezrobione zadania z poprzednich dni nie przepadają. Wróć do dnia
+              albo odhacz konkretne zadanie jako nadrobione.
+            </p>
+            <div class="overdue-list" id="overdueList"></div>
+          </section>
         </aside>
       </main>
+
+      <section class="bottom-grid">
+        <section class="panel">
+          <div class="section-title">
+            <h2>Kategorie</h2>
+            <span class="muted">wykonane</span>
+          </div>
+          <div class="cats" id="catStats"></div>
+        </section>
+        <section class="panel" id="syncPanel">
+          <div class="section-title">
+            <h2>Supabase sync</h2>
+            <span class="muted" id="syncStatus">lokalnie</span>
+          </div>
+          <div class="syncbox">
+            <p class="sync-status">
+              Postęp zapisuje się lokalnie zawsze. Po konfiguracji Supabase
+              synchronizujesz telefon i komputer.
+            </p>
+            <div class="sync-row">
+              <input
+                id="syncEmail"
+                type="email"
+                placeholder="twój email do logowania"
+              /><button class="btn secondary" id="loginBtn">Wyślij link</button>
+            </div>
+            <div class="sync-row">
+              <button class="btn" id="syncBtn">Synchronizuj teraz</button
+              ><button class="btn ghost" id="logoutBtn">Wyloguj</button>
+            </div>
+          </div>
+        </section>
+      </section>
     </div>
     <nav class="nav">
       <button class="active" data-jump="top">Dzień</button
       ><button data-jump="questsPanel">Questy</button
-      ><button data-jump="statsPanel">Staty</button
+      ><button data-jump="calendarPanel">Kalendarz</button
+      ><button data-jump="overduePanel">Zaległe</button
       ><button id="exportBtn">Export</button>
     </nav>
+
     <script src="supabase-config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
@@ -787,16 +1314,126 @@
             row.innerHTML = `<span>${escapeHtml(c)}</span><div class="smallbar"><span style="width:${pc}%"></span></div><b>${catDone[c] || 0}</b>`;
             cats.appendChild(row);
           });
+        renderMonthCalendar(p);
+        renderOverdue(p);
+      }
+      function renderMonthCalendar(p) {
         const cal = $("calendar");
+        if (!cal) return;
         cal.innerHTML = "";
-        DATA.days.forEach((day) => {
+        const [yy, mm] = currentDate.split("-").map(Number);
+        const monthNames = [
+          "styczeń",
+          "luty",
+          "marzec",
+          "kwiecień",
+          "maj",
+          "czerwiec",
+          "lipiec",
+          "sierpień",
+          "wrzesień",
+          "październik",
+          "listopad",
+          "grudzień",
+        ];
+        const label = $("calendarMonthLabel");
+        if (label) label.textContent = monthNames[mm - 1] + " " + yy;
+        const first = new Date(yy, mm - 1, 1);
+        const daysInMonth = new Date(yy, mm, 0).getDate();
+        const offset = (first.getDay() + 6) % 7; // Monday first
+        for (let i = 0; i < offset; i++) {
+          const b = document.createElement("div");
+          b.className = "dot blank";
+          cal.appendChild(b);
+        }
+        for (let d = 1; d <= daysInMonth; d++) {
+          const date =
+            yy +
+            "-" +
+            String(mm).padStart(2, "0") +
+            "-" +
+            String(d).padStart(2, "0");
+          const day = DATA.days.find((x) => x.date === date);
           const x = document.createElement("div");
-          x.className =
-            "dot " + (dayProgress(day, p) === day.quests.length ? "done" : "");
-          x.title = day.date + " • " + dayProgress(day, p) + "/5";
-          x.onclick = () => setDate(day.date);
+          if (day) {
+            const dp = dayProgress(day, p),
+              max = day.quests.length,
+              level = Math.min(max, Math.max(0, dp));
+            x.className =
+              "dot p" +
+              level +
+              (level === max ? " done" : "") +
+              (date === currentDate ? " current" : "") +
+              (date < currentDate && level < max ? " missed" : "") +
+              (date > todayString() ? " future" : "");
+            x.title = date + " • " + dp + "/" + max + " zadań";
+            x.setAttribute("aria-label", x.title);
+            x.onclick = () => setDate(date);
+          } else {
+            x.className = "dot p0 future";
+            x.title = date + " • poza planem";
+          }
+          x.innerHTML = '<span class="daynum">' + d + "</span>";
           cal.appendChild(x);
+        }
+      }
+      function shiftCalendarMonth(delta) {
+        const d = new Date(currentDate);
+        d.setMonth(d.getMonth() + delta, 1);
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const year = d.getFullYear();
+        const target = clampDate(year + "-" + month + "-01");
+        setDate(target);
+      }
+      function overdueItems(p) {
+        const items = [];
+        DATA.days.forEach((day) => {
+          if (day.date >= currentDate) return;
+          day.quests.forEach((q, idx) => {
+            if (!p[q.id]) items.push({ day, q, idx });
+          });
         });
+        return items.sort((a, b) => b.day.date.localeCompare(a.day.date));
+      }
+      function renderOverdue(p) {
+        const list = $("overdueList"),
+          count = $("overdueCount");
+        if (!list || !count) return;
+        const items = overdueItems(p);
+        count.textContent = items.length;
+        list.innerHTML = "";
+        if (!items.length) {
+          list.innerHTML =
+            '<div class="overdue-empty">Nie masz zaległości. Czysta mapa — lecimy dalej.</div>';
+          return;
+        }
+        items.slice(0, 40).forEach((item) => {
+          const el = document.createElement("article");
+          el.className = "overdue-card";
+          el.innerHTML = `<h3>${formatDate(item.day.date)} • ${item.idx + 1}. ${escapeHtml(item.q.title)}</h3><p>${escapeHtml(item.q.description).slice(0, 190)}${item.q.description.length > 190 ? "…" : ""}</p><div class="overdue-meta"><span>${escapeHtml(item.q.kind === "challenge" ? "challenge" : "zadanie")}</span><span>${escapeHtml(item.q.category)}</span><span>${item.q.minutes} min</span><span>${item.q.points} pkt</span></div><div class="overdue-actions"><button class="btn secondary" data-go-overdue="${item.day.date}">Wróć do dnia</button><button class="btn" data-done-overdue="${item.q.id}">Odhacz jako nadrobione</button></div>`;
+          list.appendChild(el);
+        });
+        if (items.length > 40) {
+          const more = document.createElement("div");
+          more.className = "overdue-empty";
+          more.textContent = `Pokazuję 40 najnowszych zaległości z ${items.length}. Po nadrobieniu pojawią się kolejne.`;
+          list.appendChild(more);
+        }
+        list
+          .querySelectorAll("[data-go-overdue]")
+          .forEach((b) => (b.onclick = () => setDate(b.dataset.goOverdue)));
+        list
+          .querySelectorAll("[data-done-overdue]")
+          .forEach(
+            (b) => (b.onclick = () => markOverdueDone(b.dataset.doneOverdue)),
+          );
+      }
+      function markOverdueDone(id) {
+        const p = loadProgress();
+        p[id] = new Date().toISOString();
+        saveProgress(p);
+        toast("Zaległe zadanie nadrobione. Wraca do statystyk.");
+        render();
       }
       function calcStreak(p) {
         let s = 0;
@@ -890,6 +1527,12 @@
         setDate(d.toISOString().slice(0, 10));
       };
       $("datePicker").onchange = (e) => setDate(e.target.value);
+      if ($("calPrevBtn"))
+        $("calPrevBtn").onclick = () => shiftCalendarMonth(-1);
+      if ($("calNextBtn"))
+        $("calNextBtn").onclick = () => shiftCalendarMonth(1);
+      if ($("calTodayBtn"))
+        $("calTodayBtn").onclick = () => setDate(todayString());
       $("rerollBtn").onclick = reroll;
       $("exportBtn").onclick = exportProgress;
       if ($("loginBtn")) $("loginBtn").onclick = cloudLogin;
@@ -980,16 +1623,14 @@
           setSyncStatus("niezalogowany");
           return;
         }
-        const { error } = await sbClient
-          .from("quest_progress")
-          .upsert(
-            {
-              user_id: user.id,
-              progress: progress || loadProgress(),
-              updated_at: new Date().toISOString(),
-            },
-            { onConflict: "user_id" },
-          );
+        const { error } = await sbClient.from("quest_progress").upsert(
+          {
+            user_id: user.id,
+            progress: progress || loadProgress(),
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: "user_id" },
+        );
         if (error) {
           setSyncStatus("błąd zapisu");
           toast("Supabase zapis: " + error.message);
